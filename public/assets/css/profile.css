@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.logo a {
+  color: #fffafa;
+  font-size: 30px;
+  font-family: "Poetsen One", sans-serif;
+}
+
+.title h2 {
+  color: #0e3067;
+}
+
+header {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  background-color: #4eabf2;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.remember-password a {
+  transition: 0.3s;
+}
+
+.remember-password a:hover {
+  color: #cb0000;
+}
+
+button {
+  width: 100%;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.container {
+  width: 100%;
+  max-width: 2000px;
+  height: 100%;
+  background-color: #0e3067;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+main {
+  width: 100%;
+}
+
+.login-area {
+  width: 100%;
+  max-width: 650px;
+  background-color: #4eabf2;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin-top: 80px;
+}
+
+.log-area a {
+  transition: 0.3s;
+}
+
+.log-area a:hover {
+  color: #cb0000;
+}
+
+@media (max-width: 600px) {
+  .login-area {
+    width: 90%;
+  }
+  main {
+    width: 100%;
+  }
+}
+
+
+.delete-user {
+  position: absolute;
+  top: 112px;
+  left: 32px;
+}

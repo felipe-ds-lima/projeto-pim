@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="facilitime">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timelines - facilitime</title>
+    <!-- ICON -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet" />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/menu.css">
+    <link rel="stylesheet" href="/assets/css/timeline.css">
+</head>
+
+<body ng-controller="TimelinesController">
+    <div class="fakemenu"></div>
+    <aside class="menu-aside">
+        <a href="#" class="logo">Faciliti.Me</a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="/" class="nav-link" aria-current="page">
+                    <i class="ri-home-2-line"></i>Início
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/quadros" class="nav-link" aria-current="page">
+                    <i class="ri-artboard-line"></i>Quadros
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/notes" class="nav-link">
+                    <i class="ri-sticky-note-line"></i>Anotações
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/tasks" class="nav-link"><i class="ri-task-line"></i>Tarefas</a>
+            </li>
+            <li class="nav-item">
+                <a href="/timelines" class="nav-link">
+                    <i class="ri-line-chart-line"></i>Linhas do Tempo
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/schedule" class="nav-link">
+                  <i class="ri-calendar-line"></i>Agenda
+                </a>
+              </li>
+            <li class="nav-item">
+                <a href="/games" class="nav-link">
+                    <i class="ri-gamepad-line"></i>Jogos
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <header class="app-header">
+        <h1>Linhas do tempo</h1>
+    </header>
+    <aside class="timelines">
+        <button ng-repeat="timeline in timelines" ng-click="selectTimeline(timeline)" type="button" class="timeline-btn"
+            ng-class="{'active': timeline.timelineId == currentTimeline.timelineId}">
+            {{timeline.title}}
+        </button>
+
+        <p ng-if="timelines.length == 0" class="no-timelines">Nenhuma linha do tempo cadastrada...</p>
+
+        <div class="add-timeline">
+            <input ng-model="newTimeline.title" type="text" name="new-timeline-name"
+                placeholder="Nome da linha do tempo">
+            <button ng-click="addTimeline()" type="button">Adicionar linha do tempo</button>
+        </div>
+    </aside>
+
+    <main ng-if="currentTimeline" class="app-content">
+        <div class="title">
+            <input ng-model="currentTimeline.title" ng-blur="updateTimeline()" type="text" name="timeline-name" />
+            <button ng-click="deleteTimeline(currentTimeline)" type="button">Remover Timeline</button>
+        </div>
+        <header class="timeline-header">
+            <div ng-if="viewOptions.type == 'day'" class="view-options">
+                <select ng-model="viewOptions.month" ng-change="someFilterChange()" name="month">
+                    <option value="1">Janeiro</option>
+                    <option value="2">Fevereiro</option>
+                    <option value="3">Março</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Maio</option>
+                    <option value="6">Junho</option>
+                    <option value="7">Julho</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Setembro</option>
+                    <option value="10">Outubro</option>
+                    <option value="11">Novembro</option>
+                    <option value="12">Dezembro</option>
+                </select>
+                <input ng-model="viewOptions.year" ng-change="someFilterChange()" type="number">
+            </div>
+
+            <div ng-if="viewOptions.type == 'month'" class="view-options">
+                <input ng-model="viewOptions.year" ng-change="someFilterChange()" type="number">
+            </div>
+
+
+            <div ng-if="viewOptions.type == 'year' || viewOptions.type == 'decade' || viewOptions.type == 'millennium'"
+                class="view-options">
+                <input ng-model="viewOptions.startYear" ng-change="someFilterChange()" type="number">
+                <input ng-model="viewOptions.year" ng-change="someFilterChange()" type="number">
+            </div>
+
+            <div ng-if="viewOptions.type == 'century'" class="view-options">
+                <input ng-model="viewOptions.startYear" ng-change="someFilterChange()" type="number">
+                <input ng-model="viewOptions.year" ng-change="someFilterChange()" type="number">
+            </div>
+
+            <div class="view-type">
+                <select ng-model="viewOptions.type" ng-change="someFilterChange()" name="type">
+                    <option value="day">Dias</option>
+                    <option value="month">Meses</option>
+                    <option value="year">Anos</option>
+                </select>
+            </div>
+        </header>
+
+        <div ng-if="points.length == 0" class="content">
+            <p class="no-points">Nenhum ponto cadastrado...</p>
+        </div>
+
+        <div ng-if="points.length > 0" class="content">
+            <table class="content-table" border="0" callpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th ng-repeat="ph in pointsHeader">{{ph}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in rows">
+                        <td ng-repeat="col in row">
+                            <div ng-if="col.point"
+                                class="point {{col.point.color}} {{col.start ? 'start' : ''}} {{col.end ? 'end' : ''}}">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer class="add-point">
+            <h3>Adicionar ponto</h3>
+            <div class="line">
+                <input ng-model="newPoint.title" type="text" name="title" placeholder="Nome do ponto">
+                <select ng-model="newPoint.color" name="color">
+                    <option value="red">Vermelho</option>
+                    <option value="blue">Azul</option>
+                    <option value="green">Verde</option>
+                    <option value="yellow">Amarelo</option>
+                    <option value="pink">Rosa</option>
+                    <option value="purple">Roxo</option>
+                    <option value="orange">Laranja</option>
+                </select>
+            </div>
+            <div class="line">
+                <input ng-model="newPoint.startDate" type="date">
+                <input ng-model="newPoint.endDate" type="date">
+            </div>
+            <textarea ng-model="newPoint.content" name="content" placeholder="Descrição do ponto"></textarea>
+            <button ng-click="addPoint()" type="button">Adicionar ponto</button>
+        </footer>
+    </main>
+
+    <main ng-if="!currentTimeline" class="app-content">
+        <p class="no-current">
+            Selecione uma linha do tempo.
+        </p>
+    </main>
+
+    <script src="/assets/js/angular-app.js"></script>
+    <script src="/assets/js/lib/jwt-decode.js"></script>
+    <script src="/assets/js/services/session.service.js"></script>
+    <script src="/assets/js/controllers/timelines.controller.js"></script>
+</body>
+
+</html>

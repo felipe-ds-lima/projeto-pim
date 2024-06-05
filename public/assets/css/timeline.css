@@ -1,0 +1,292 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+button,
+textarea,
+select,
+input,
+body {
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    display: grid;
+    grid-template-areas: 'f h h' 'f a m';
+    grid-template-columns: 250px 300px 1fr;
+    grid-template-rows: 60px 1fr;
+    max-width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.fakemenu {
+    grid-area: f;
+}
+
+.app-header {
+    grid-area: h;
+    background-color: #fff;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    z-index: 9;
+
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+}
+
+.timelines {
+    grid-area: a;
+    background-color: #0e3067;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.app-content {
+    grid-area: m;
+    background-color: #eee;
+    max-width: calc(100vw - 300px);
+    overflow: hidden;
+    padding: 32px;
+    display: grid;
+    grid-template-rows: min-content min-content 1fr min-content;
+}
+
+.timeline-btn {
+    padding: 16px;
+    text-align: left;
+    font-weight: bold;
+    background-color: #0000;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.timeline-btn.active,
+.timeline-btn:hover {
+    background-color: #0002;
+}
+
+.add-timeline {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-timeline input {
+    flex: 1;
+    margin: 16px 0 8px;
+    padding: 16px;
+    border-radius: 8px;
+    border: none;
+}
+
+.add-timeline button {
+    flex: 1;
+    padding: 16px;
+    background-color: #4eabf2;
+    color: #fff;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 8px;
+    border: none;
+}
+
+.add-timeline button:hover {
+    background-color: #2b73ab;
+}
+
+.add-timeline button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.no-timelines {
+    margin: 0 auto;
+    text-align: center;
+    color: #fff;
+    opacity: 0.6;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.app-content h2 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+}
+
+.app-content input,
+.app-content select {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 2px solid #888;
+}
+
+
+h3 {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.line {
+    display: flex;
+    gap: 16px;
+    max-width: 800px;
+    margin: 0 auto 16px;
+}
+
+.line input,
+.line select {
+    flex: 1;
+}
+
+textarea {
+    display: block;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto 16px;
+    height: 100px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 2px solid #888;
+    resize: none;
+}
+
+.add-point button {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #4eabf2;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+}
+
+.add-point button:hover {
+    background-color: #2b73ab;
+}
+
+.no-points {
+    text-align: center;
+    margin-top: 100px;
+    opacity: 0.8;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title input {
+    background: none;
+    border: none;
+    font-size: 32px;
+    font-weight: bolder;
+    padding: 0;
+}
+
+.title button {
+    background-color: #f10000;
+    color: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    border: none;
+    opacity: 0.5;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.title button:hover {
+    opacity: 1;
+}
+
+/* CONTENT */
+
+.content {
+    overflow: hidden;
+    overflow: auto;
+}
+
+.content-table {
+    width: 100%;
+    max-width: 100%;
+}
+
+.content-table th {
+    min-width: 50px;
+}
+
+.no-current {
+    padding-top: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    opacity: 0.5;
+}
+
+.point {
+    width: 100%;
+    height: 32px;
+    margin: 8px 0;
+}
+
+.point.blue {
+    background-color: #0984e3;
+}
+
+.point.green {
+    background-color: #00b894;
+}
+
+.point.red {
+    background-color: #ef476f;
+}
+
+.point.yellow {
+    background-color: #ffd166;
+}
+
+.point.pink {
+    background-color: #ff006e;
+}
+
+.point.purple {
+    background-color: #8338ec;
+}
+
+.point.orange {
+    background-color: #e67e22;
+}
+
+.point.start {
+    border-radius: 25px 0 0 25px;
+}
+
+.point.end {
+    border-radius: 0 25px 25px 0;
+}
+
+.point.start.end {
+    border-radius: 25px;
+}
